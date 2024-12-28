@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="Public/FarmImages/GeeBerryFarmLogo.png">
+    <title>Gee Berry Farm</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0f61d581;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            color: black;
+        }
+
+        .header img {
+            height: 200px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-family: 'Dancing Script', cursive;
+            margin: 0;
+        }
+
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            height: 900px; 
+        }
+        .grid2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            height: 200px;
+        }
+
+        .grid-item {
+            flex: 1;
+            min-width: 250px;
+            overflow: hidden;
+            position: relative;
+            background-color: #555;
+            display: inline-block;
+        }
+
+        /* Specific sizes for rectangles and squares */
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="Public/FarmImages/GeeBerryFarmLogo.png" alt="Logo">
+            <div class="description">
+                Coming Soon! Gee Berry Farm, a farm stay adventure picking blueberries, outdoor movies, and much more. Stay tuned for updates.
+            </div>
+        </div>
+        <div class="grid">
+            <div class="grid-item"><img src="" alt=""></div>
+            <div class="grid-item"><img src="" alt=""></div>
+            <div class="grid-item"><img src="" alt=""></div>
+            <div class="grid-item"><img src="" alt=""></div>
+            <div class="grid-item"><img src="" alt=""></div>
+        </div>
+    </div>
+
+    <script>
+        // Separate image banks for each grid spot
+        const imageBanks = [
+            ["AnotherFallOption.jpg", "AnotherFallSunrise.jpg", "BetterCroppedFall.jpg", "BetterFallOption.jpg", "TheTrees.jpg", "PonyOnFarmWithView.jpg", "PonyInSummerView.jpg", "BlueBerriesInHand.jpg"],
+            ["Blueberries.jpg", "BlueBerriesInHand.jpg", "BlueberryBushesInFall.jpg", "BlueberryWithkids.jpg", "SummerPond.jpg", "SpringBlossems.jpg", "SleepingGoatsBetter.jpg", "Jam.jpg"],
+            ["ChickensOnChairs.jpg", "ChickensInFall.jpg", "ChickenInShed.jpg", "CampgroundInSummer.jpg", "WalkingWithDucks.jpg", "RoadWithLeaves.jpg", "FrostedPine.jpg"],
+            ["DucksInTree.jpg", "DucksSleeping.jpg", "SunriseWithPondAndClouds.jpg", "SunriseWithPond.jpg", "SunriseFallOption.jpg"],
+            ["EarlySunrise.jpg", "EmilyWithGoat.jpg", "FallOption.jpg", "LakeInSummer.jpg", "GooseBerriesInHand.jpg", "GoatSunrise.jpg", "GoatsSunrise.jpg", "FarmInFallBig.jpg"],
+        ];
+
+        const gridItems = document.querySelectorAll('.grid-item img');
+
+        function randomFade(index) {
+            const img = gridItems[index];
+            const bank = imageBanks[index];
+            const randomImage = bank[Math.floor(Math.random() * bank.length)];
+
+            if (img.src.includes(randomImage)) return; // Avoid immediate duplicates
+
+            img.style.opacity = 0; // Fade out
+            setTimeout(() => {
+                img.src = "Public/FarmImages/" + randomImage;
+                img.style.opacity = 1; // Fade in
+            }, 2000); // Match fade duration
+        }
+
+        function initializeGrid() {
+            gridItems.forEach((img, index) => {
+                const initialImage = imageBanks[index][Math.floor(Math.random() * imageBanks[index].length)];
+                img.src = "Public/FarmImages/" + initialImage;
+                img.style.opacity = 1; // Ensure initial images are visible
+            });
+        }
+
+        function startFading() {
+            setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * gridItems.length);
+                randomFade(randomIndex);
+            }, 3000);
+        }
+
+        initializeGrid();
+        startFading();
+    </script>
+</body>
+</html>
